@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.text.DecimalFormat;
+
 public class WidgetFactory {
 
     /*
@@ -28,4 +31,74 @@ public class WidgetFactory {
      Profit: $760.00
 
      */
+
+
+    public static void main(String[] args) {
+       int widget = getInput("How many widgets are needed?");
+
+        int  numberOfDays = numberOfDays(widget);
+
+       double costOfWidgets = costOfWidgets(widget);
+
+       double costOfProduction = costOfProduction(numberOfDays);
+
+       double profitMade = profitMade(costOfProduction,costOfWidgets);
+
+
+
+        outputResults(numberOfDays,costOfWidgets,costOfProduction,profitMade);
+    }
+
+
+    public static int getInput(String prompt){
+        return Integer.parseInt(JOptionPane.showInputDialog(prompt));
+    }
+
+    public static int numberOfDays(int widget){
+
+        double hoursADay = 16.0;
+        double hours = (double) (widget/10) + 8 ;
+        int calculateDays = (int)Math.ceil(hours/hoursADay);
+
+        return calculateDays;
+
+    }
+    public static double costOfWidgets(int widget){
+
+        double widgetCost = (double)widget * 10.00;
+
+        return widgetCost;
+
+    }
+    public static double costOfProduction (double calculateDays){
+
+        double productionCost = calculateDays * 10.0 * 8.0 * 16.50;
+
+        return productionCost;
+
+    }
+    public static double profitMade (double productionCost,double widgetCost){
+
+
+        double profit = widgetCost - productionCost;
+
+        return profit;
+
+    }
+
+
+
+
+
+
+    public static void outputResults(int numberOfDays,double costOfWidgets, double costOfProduction , double profitMade ) {
+        DecimalFormat addZero = new DecimalFormat("##,###.00");
+
+        String message =  "the number of days: " + numberOfDays +
+                "\n Cost Of widgets: $ "  + addZero.format(costOfWidgets) + "\ncost of production: $" + addZero.format(costOfProduction) + "\nprofit: $" + addZero.format(profitMade);
+
+        JOptionPane.showMessageDialog(null,message);
+    }
+
+
 }
